@@ -1,0 +1,126 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Bergen}
+\usecolortheme{crane}
+
+% generic packages
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{multicol}
+
+% about the presentation
+\title{Concise Binary Object Representation (CBOR)}
+\hypersetup{pdftitle={CBOR chair slides}}
+\subtitle{Working group meeting}
+\def\insertauthorindicator{Chairs}
+\author{Barry~Leiba, Christian~Amsüss}
+\def\insertdateindicator{When}
+\institute{\normalsize{IETF 111, virtual San Francisco}}
+\def\insertinstituteindicator{\translate{Where}}
+\date{2021-07-30}
+
+
+\hypersetup{colorlinks}
+
+% attach self
+
+\usepackage{embedfile}
+\embedfile{\jobname.tex}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section*{Preliminaries}
+
+\begin{frame}{Note Well}\scriptsize
+This is a reminder of IETF policies in effect on various topics such as patents or code of conduct. It is only meant to point you in the right direction. Exceptions may apply. The IETF's patent policy and the definition of an IETF "contribution" and "participation" are set forth in BCP 79; please read it carefully.
+
+	\begin{block}{\small As a reminder\qquad\mbox{}}
+
+	\vspace{-1.65em}
+
+	\begin{itemize}
+		\item By participating in the IETF, you agree to follow IETF processes and policies.
+		\item If you are aware that any IETF contribution is covered by patents or patent applications that are owned or controlled by you or your sponsor, you must disclose that fact, or not participate in the discussion.
+		\item As a participant in or attendee to any IETF activity you acknowledge that written, audio, video, and photographic records of meetings may be made public.
+		\item Personal information that you provide to IETF will be handled in accordance with the IETF Privacy Statement.
+		\item As a participant or attendee, you agree to work respectfully with other participants; please contact the ombudsteam (\url{https://www.ietf.org/contact/ombudsteam/}) if you have questions or concerns about this.
+	\end{itemize}
+
+	\end{block}
+
+	\vspace{-1em}
+	\begin{block}{\small Definitive information}
+\ldots is in the documents listed below and other IETF BCPs. For advice, please talk to WG chairs or ADs:
+
+\href{https://www.rfc-editor.org/info/bcp9}{BCP 9} (Internet Standards Process),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Working Group processes),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Anti-Harassment Procedures),
+\href{https://www.rfc-editor.org/info/bcp54}{BCP 54} (Code of Conduct),
+\href{https://www.rfc-editor.org/info/bcp78}{BCP 78} (Copyright),
+\href{https://www.rfc-editor.org/info/bcp79}{BCP 79} (Patents, Participation),
+\url{https://www.ietf.org/privacy-policy/} (Privacy Policy)
+	\end{block}
+\end{frame}
+
+\begin{frame}{Agenda}\large
+	\begin{itemize}
+		\item Introduction, agenda. CA, 3’
+
+		\item WG documents
+			\begin{itemize}
+				\item \texttt{RFC9090}. Was cbor-tags-oid. CA, 1’
+				\item \texttt{cddl-control}. Processing WGLC and shepherd. CB, 2’
+				\item \texttt{file-magic}. WGLC will need more feedback to complete. MCR, \textbf{5’}
+				\item \texttt{network-addresses}. WGLC ending here, shepherd writeup ready. MCR, \textbf{5’}
+				\item \texttt{time-tag}. Just adopted recently. CB, 2’
+				\item \texttt{packed}. CB, \textbf{15’}
+			\end{itemize}
+
+			\item Individual documents
+			\begin{itemize}
+				\item \texttt{notable-tags}. Also ``How to maintain usability of tags registry?'' CB, \textbf{10’}
+				\item \texttt{cddl-freezer}. Priorizing frozen goods. CB, \textbf{10’}
+				\item \texttt{map-like}. CB, 2’
+			\end{itemize}
+	\end{itemize}
+
+	\small (The 2’ slots for some documents are primarily to state document status / aliveness, and/or get room input on further directions, based on the standing assumptions that People Have Read The Drafts.)
+
+	\vspace{-3cm}
+	\begin{block}{\includegraphics[width=3cm]{pinata-nobackground.pdf}\mbox{\quad}}
+	\end{block}
+\end{frame}
+
+\section*{WG documents}
+%\frame{\sectionpage} % TBD get rid of slide numbers
+
+\begin{frame}{RFC9090}\Large
+	\framesubtitle{was draft-ietf-cbor-tags-oid}
+
+	Released 2021-07-15.
+
+	\begin{block}{\includegraphics[width=3cm]{balloon-nobackground.pdf}\mbox{\quad}}
+		Thanks to Carsten, Sean and reviewers.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Reel change}
+	\begin{block}{\includegraphics[width=3cm]{film-spool-nobackground.pdf}\mbox{\quad}}
+		\mbox{}
+
+		\vspace{-1.7cm}
+
+		(Please continue to Carsten's slides)
+	\end{block}
+
+	\vfill
+	\tiny Images:
+	\href{https://game-icons.net/1x1/delapouite/pinata.html}{Piñata by Delapouite},
+	\href{https://game-icons.net/1x1/lorc/balloons.html}{balloons by Lorc}
+	\href{https://game-icons.net/1x1/delapouite/film-spool.html}{reel by Delapouite}, all CC-BY 3.0
+\end{frame}
+
+\end{document}
