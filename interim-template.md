@@ -17,12 +17,12 @@ Notes (please volunteer to help take notes):
 
 ---
 
-[CB]: Carsten Bormann
-[BL]: Barry Leiba
-[FP]: Francesca Palombini
-[IMD]: Ira McDonald
-[MCR]: Michael Richardson
-[CA]: Christian Amsüss
-[MT]: Marco Tiloca
-[PP]: Philip Prindeville
-[ST]: Sean Turner
+*[CB]: Carsten Bormann
+*[BL]: Barry Leiba
+*[FP]: Francesca Palombini
+*[IMD]: Ira McDonald
+*[MCR]: Michael Richardson
+*[CA]: Christian Amsüss
+*[MT]: Marco Tiloca
+*[PP]: Philip Prindeville
+*[ST]: Sean Turner
