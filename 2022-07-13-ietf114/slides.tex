@@ -1,0 +1,194 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Bergen} % distinct visual style from typical presenter slides 
+\usecolortheme{crane} % likewise
+
+\setbeamertemplate{headline}
+
+% generic packages
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{multicol}
+
+% about the presentation
+\title{Concise Binary Object Representation (CBOR)}
+\hypersetup{pdftitle={CBOR chair slides}}
+\subtitle{Working group meeting}
+\def\insertauthorindicator{Chairs}
+\author{Barry~Leiba, Christian~Amsüss}
+\def\insertdateindicator{When}
+\newcommand{\theietf}{IETF 114}
+\institute{\normalsize{\theietf, Philadelphia}}
+\def\insertinstituteindicator{\translate{Where}}
+\date{2022-07-28}
+
+
+\hypersetup{colorlinks}
+
+% get page numbers without author and institute, especially given the institute hack later to get sizes consistent
+
+% thanks Andrea, from https://tex.stackexchange.com/questions/179304/redefining-infolines-in-beamer
+\defbeamertemplate*{footline}{infolines}
+{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{intitute in head/foot}{\theietf}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+        \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+    \end{beamercolorbox}}%
+    \vskip0pt%
+}
+
+% and, given that it has no deep structure and navigation can't be used through meetecho anyway, remove other clutter from there
+
+\beamertemplatenavigationsymbolsempty
+
+% attach self
+
+\usepackage{embedfile}
+\embedfile{\jobname.tex}
+\embedfile{Makefile}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section*{Preliminaries}
+
+\begin{frame}{Note Well}\scriptsize
+This is a reminder of IETF policies in effect on various topics such as patents or code of conduct. It is only meant to point you in the right direction. Exceptions may apply. The IETF's patent policy and the definition of an IETF "contribution" and "participation" are set forth in BCP 79; please read it carefully.
+
+    \begin{block}{\small As a reminder\qquad\mbox{}}
+
+    \vspace{-1.65em}
+
+    \begin{itemize}
+        \item By participating in the IETF, you agree to follow IETF processes and policies.
+        \item If you are aware that any IETF contribution is covered by patents or patent applications that are owned or controlled by you or your sponsor, you must disclose that fact, or not participate in the discussion.
+        \item As a participant in or attendee to any IETF activity you acknowledge that written, audio, video, and photographic records of meetings may be made public.
+        \item Personal information that you provide to IETF will be handled in accordance with the IETF Privacy Statement.
+        \item As a participant or attendee, you agree to work respectfully with other participants; please contact the ombudsteam (\url{https://www.ietf.org/contact/ombudsteam/}) if you have questions or concerns about this.
+    \end{itemize}
+
+    \end{block}
+
+    \vspace{-1em}
+    \begin{block}{\small Definitive information}
+\ldots is in the documents listed below and other IETF BCPs. For advice, please talk to WG chairs or ADs:
+
+\href{https://www.rfc-editor.org/info/bcp9}{BCP 9} (Internet Standards Process),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Working Group processes),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Anti-Harassment Procedures),
+\href{https://www.rfc-editor.org/info/bcp54}{BCP 54} (Code of Conduct),
+\href{https://www.rfc-editor.org/info/bcp78}{BCP 78} (Copyright),
+\href{https://www.rfc-editor.org/info/bcp79}{BCP 79} (Patents, Participation),
+\url{https://www.ietf.org/privacy-policy/} (Privacy Policy)
+    \end{block}
+\end{frame}
+
+\begin{frame}{Procedural notes}
+    \begin{itemize}
+        \item Masks are mandatory in IETF rooms except for speaking chairs and presenters.
+        \item Please join the Meetecho queue when lining up at the microphone.
+
+            The Meetecho local tool also manages bluesheets, so please log in there even if you do not queue up.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Agenda}\large
+    \begin{itemize}
+        \item Introduction, agenda. Chairs, 3'
+
+        \item WG documents
+            \begin{itemize}
+                \item Brief status on recent \href{https://datatracker.ietf.org/doc/rfc9164/}{RFCs 9164 (network-addresses)} and \href{https://datatracker.ietf.org/doc/rfc9165/}{9165 (cddl-control)}; \href{https://datatracker.ietf.org/doc/draft-ietf-cbor-file-magic/}{file-magic}, \href{https://datatracker.ietf.org/doc/draft-ietf-cbor-time-tag/}{time-tag}. Chairs, 5'.
+                \item \href{https://datatracker.ietf.org/doc/draft-ietf-cbor-packed/}{packed}, including "equivalence principle". CB, 15'.
+            \end{itemize}
+
+            \item Upcoming work
+            \begin{itemize}
+                \item CDDL 2.0 roadmap. CB, 20'.
+                \item Tag registry development and maintenance. CA, 10'.
+            \end{itemize}
+    \end{itemize}
+
+    \vspace{-3cm}
+    \begin{block}{\includegraphics[width=3cm]{pinata-nobackground.pdf}\mbox{\quad}}
+    \end{block}
+\end{frame}
+
+\section*{WG documents}
+
+\begin{frame}{RFC9164}\Large
+        \framesubtitle{was draft-ietf-cbor-network-addresses}
+
+        ``CBOR Tags for IPv4 and IPv6 Addresses and Prefixes''.
+
+        \bigskip
+
+        Released 2021-12-13.
+
+        \begin{block}{\includegraphics[width=3cm]{balloon-nobackground.pdf}\mbox{\quad}}
+                Thanks to Michael, Carsten and reviewers.
+        \end{block}
+\end{frame}
+
+\begin{frame}{RFC9165}\Large
+        \framesubtitle{was draft-ietf-cbor-cddl-control}
+
+        ``Additional Control Operators for CDDL'':\\
+        \texttt{.plus}, \texttt{.cat}, \texttt{.det}, \texttt{.abnf[b]}, \texttt{.feature}.
+
+        \bigskip
+
+        Released 2021-12-24.
+
+        \vspace{-1.5cm}
+
+        \begin{block}{
+                \includegraphics[width=3cm]{balloon-nobackground.pdf}\mbox{\quad}
+                \includegraphics[width=1.5cm]{pine-tree-nobackground.pdf}}
+
+                \vspace{2cm}
+                Thanks to Carsten and reviewers.
+        \end{block}
+\end{frame}
+
+\begin{frame}{Other WG documents}\Large
+
+    \begin{block}{\Large file-magic \\ \small On storing CBOR encoded items on stable storage}
+        Now in RFC editor queue.
+    \end{block}
+
+    \bigskip
+
+    \begin{block}{\Large time-tag \\ \small CBOR Tags for Time, Duration, and Period}
+        Waiting for SEDATE results.
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{Reel change}
+    \begin{block}{\includegraphics[width=3cm]{film-spool-nobackground.pdf}\mbox{\quad}}
+        \mbox{}
+
+        \vspace{-1.7cm}
+
+        (Please continue to individual slots' slides.)
+    \end{block}
+
+    \vfill
+    \tiny Images:
+    \href{https://game-icons.net/1x1/delapouite/pinata.html}{Piñata by Delapouite},
+    \href{https://game-icons.net/1x1/lorc/balloons.html}{balloons by Lorc},
+    \href{https://game-icons.net/1x1/lorc/pine-tree.html}{tree by Lorc},
+    \href{https://game-icons.net/1x1/delapouite/film-spool.html}{reel by Delapouite}, all CC-BY 3.0
+\end{frame}
+
+\end{document}
