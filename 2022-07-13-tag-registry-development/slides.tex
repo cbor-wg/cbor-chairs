@@ -1,0 +1,78 @@
+\documentclass[aspectratio=169,colorlinks]{beamer}
+\usetheme{Boadilla} % plainest one with slide number footer
+
+% generic packages
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{ulem}
+
+% about the presentation
+\title{CBOR Tag registry development and maintenance}
+\subtitle{This is not a draft -- this is picking up a few discussion threads.}
+\author{Christian~Amsüss}
+\date{2022-07-28, IETF 114}
+
+
+% attach self
+
+\usepackage{embedfile}
+\embedfile{Makefile}
+\embedfile{\jobname.tex}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Examples}\large
+    \begin{itemize}
+        \item 35: PCRE / ECMA262
+
+            Not part of STD94 because of internal ambiguity and outdatedness
+
+        \item 260/261 $\to$ 52/54: IP addresses
+
+            260/261 DEPRECATED since RFC9164 (late decision; originally ``we don't touch'')
+
+        \item 1 and 1001: Time, with extensions
+
+            time-tag is dict-style extension of 1. Its key 4 $\approx$ key/tag 1 + allowing bigfloat etc.
+
+        \item 38: Language
+
+            problem-details changes \texttt{\#6.38([ltag, text])} to  \texttt{\#6.38([ltag, text, ?dir])}
+
+        \item 32: URIs (hypothetical)
+
+            What If RFC3986 gets updated?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Random ideas around}\Large
+    Tag deprecations; column ``recommended for new protocols''?
+
+    \bigskip
+
+    Guidance on how evolvable tag values -- generalized from protocol design?\\
+    \texttt{[int / tstr / (any .feature "allowed-type-extension"), ..., * (any .feature "more-values")]}?
+
+    \bigskip
+
+    Expert Review guidance on stability?
+
+    \bigskip
+
+    URIs in external specifications are not snapshotted.
+
+    \bigskip
+
+    ``Equivalence principle'' relevant?
+\end{frame}
+
+\begin{frame}{Thanks}\Large
+    Discuss!
+\end{frame}
+
+\end{document}
