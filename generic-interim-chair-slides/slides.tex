@@ -1,0 +1,98 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Bergen} % distinct visual style from typical presenter slides 
+\usecolortheme{crane} % likewise
+
+\setbeamertemplate{headline}
+
+% generic packages
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{ulem}
+
+% about the presentation
+\title{Concise Binary Object Representation (CBOR)}
+\hypersetup{pdftitle={CBOR chair slides}}
+\subtitle{Working group interim meeting}
+\def\insertauthorindicator{Chairs}
+\author{Barry~Leiba, Christian~Amsüss}
+\date{}
+
+
+\hypersetup{colorlinks}
+
+% get page numbers without author and institute, especially given the institute hack later to get sizes consistent
+
+% thanks Andrea, from https://tex.stackexchange.com/questions/179304/redefining-infolines-in-beamer
+\defbeamertemplate*{footline}{infolines}
+{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{intitute in head/foot}{Interim meeting}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+        \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+    \end{beamercolorbox}}%
+    \vskip0pt%
+}
+
+% and, given that it has no deep structure and navigation can't be used through meetecho anyway, remove other clutter from there
+
+\beamertemplatenavigationsymbolsempty
+
+% attach self
+
+\usepackage{embedfile}
+\embedfile{\jobname.tex}
+\embedfile{Makefile}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Note Well}\scriptsize
+This is a reminder of IETF policies in effect on various topics such as patents or code of conduct. It is only meant to point you in the right direction. Exceptions may apply. The IETF's patent policy and the definition of an IETF "contribution" and "participation" are set forth in BCP 79; please read it carefully.
+
+    \begin{block}{\small As a reminder\qquad\mbox{}}
+
+    \vspace{-1.65em}
+
+    \begin{itemize}
+        \item By participating in the IETF, you agree to follow IETF processes and policies.
+        \item If you are aware that any IETF contribution is covered by patents or patent applications that are owned or controlled by you or your sponsor, you must disclose that fact, or not participate in the discussion.
+        \item As a participant in or attendee to any IETF activity you acknowledge that written, audio, video, and photographic records of meetings may be made public.
+        \item Personal information that you provide to IETF will be handled in accordance with the IETF Privacy Statement.
+        \item As a participant or attendee, you agree to work respectfully with other participants; please contact the ombudsteam (\url{https://www.ietf.org/contact/ombudsteam/}) if you have questions or concerns about this.
+    \end{itemize}
+
+    \end{block}
+
+    \vspace{-1em}
+    \begin{block}{\small Definitive information}
+\ldots is in the documents listed below and other IETF BCPs. For advice, please talk to WG chairs or ADs:
+
+\href{https://www.rfc-editor.org/info/bcp9}{BCP 9} (Internet Standards Process),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Working Group processes),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Anti-Harassment Procedures),
+\href{https://www.rfc-editor.org/info/bcp54}{BCP 54} (Code of Conduct),
+\href{https://www.rfc-editor.org/info/bcp78}{BCP 78} (Copyright),
+\href{https://www.rfc-editor.org/info/bcp79}{BCP 79} (Patents, Participation),
+\url{https://www.ietf.org/privacy-policy/} (Privacy Policy)
+    \end{block}
+\end{frame}
+
+\begin{frame}{Agenda}\Large
+    Please switch to the minutes, where the agenda has been assembled.
+
+    \bigskip
+
+    Speaking of minutes\ldots
+\end{frame}
+
+\end{document}
