@@ -184,9 +184,27 @@ This is a reminder of IETF policies in effect on various topics such as patents 
 
 
 \begin{frame}{Deterministic encoding profiles}\large
-    \begin{block}{\includegraphics[width=3cm]{misdirection-nobackground.pdf}\mbox{\quad}}
+    \begin{block}{\mbox{}\\Tasks split \hspace*{1em}}
+    \begin{itemize}
+        \item CDE: A \textit{common}\footnote{RFC8949 left some decisions to the application} deterministic profile.
+        \item dCBOR on top of CDE: An application profile providing Numeric Reduction, removing \textit{undefined} and other simples, and half the negative integers.
+    \end{itemize}
     \end{block}
-    (Slide WIP)
+
+    \bigskip
+
+    \begin{block}{\mbox{}\\Controversial \hspace*{1em}}
+    \begin{itemize}
+        \item How much is the integer 2 the same as the float 2?
+        \item What are generic CBOR serializers/deserializers?
+    \end{itemize}
+    \end{block}
+
+    \vspace{-2em}
+    \begin{block}{\includegraphics[width=3cm]{misdirection-nobackground.pdf}}
+    \end{block}
+    \vspace{-2em}
+
 \end{frame}
 
 \begin{frame}{Next interim series}\large
