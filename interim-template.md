@@ -26,3 +26,4 @@ Notes (please volunteer to help take notes):
 *[MT]: Marco Tiloca
 *[PP]: Philip Prindeville
 *[ST]: Sean Turner
+*[BM]: Brendan Moran
