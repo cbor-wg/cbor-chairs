@@ -17,6 +17,7 @@ Notes (please volunteer to help take notes):
 
 ---
 
+*[AJS]: Alexander J. Stein
 *[BL]: Barry Leiba
 *[BM]: Brendan Moran
 *[CA]: Christian Amsüss
@@ -24,7 +25,12 @@ Notes (please volunteer to help take notes):
 *[FP]: Francesca Palombini
 *[IMD]: Ira McDonald
 *[MCR]: Michael Richardson
+*[ML]: Martine Lenders
 *[MT]: Marco Tiloca
+*[OS]: Orie Steele
 *[PP]: Philip Prindeville
+*[RHo]: Russ Housley
+*[RM]: Rohan Mahy
 *[ST]: Sean Turner
+*[WMN]: Wolf McNally
 
