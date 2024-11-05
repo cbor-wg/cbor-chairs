@@ -1,0 +1,262 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Bergen} % distinct visual style from typical presenter slides
+\usecolortheme{crane} % likewise
+
+\setbeamertemplate{headline}
+
+% generic packages
+
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{ulem}
+
+% about the presentation
+\title{Concise Binary Object Representation (CBOR)}
+\hypersetup{pdftitle={CBOR chair slides}}
+\subtitle{Working group meeting}
+\def\insertauthorindicator{Chairs}
+\author{Barry~Leiba, Christian~Amsüss}
+\def\insertdateindicator{When}
+\newcommand{\theietf}{IETF 121}
+\institute{\normalsize{\theietf, Dublin}}
+\def\insertinstituteindicator{\translate{Where}}
+\date{2024-11-05}
+
+
+\hypersetup{colorlinks}
+
+% get page numbers without author and institute, especially given the institute hack later to get sizes consistent
+
+% thanks Andrea, from https://tex.stackexchange.com/questions/179304/redefining-infolines-in-beamer
+\defbeamertemplate*{footline}{infolines}
+{
+    \leavevmode%
+    \hbox{%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{intitute in head/foot}{\theietf}
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+        \usebeamerfont{title in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+        \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}%
+    \vskip0pt%
+}
+
+% and, given that it has no deep structure and navigation can't be used through meetecho anyway, remove other clutter from there
+
+\beamertemplatenavigationsymbolsempty
+
+% attach self
+
+\usepackage{embedfile}
+\embedfile{\jobname.tex}
+\embedfile{Makefile}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section*{Preliminaries}
+
+\begin{frame}{Note Well}\scriptsize
+This is a reminder of IETF policies in effect on various topics such as patents or code of conduct. It is only meant to point you in the right direction. Exceptions may apply. The IETF's patent policy and the definition of an IETF "contribution" and "participation" are set forth in BCP 79; please read it carefully.
+
+    \begin{block}{\small As a reminder\qquad\mbox{}}
+
+    \vspace{-1.65em}
+
+    \begin{itemize}
+        \item By participating in the IETF, you agree to follow IETF processes and policies.
+        \item If you are aware that any IETF contribution is covered by patents or patent applications that are owned or controlled by you or your sponsor, you must disclose that fact, or not participate in the discussion.
+        \item As a participant in or attendee to any IETF activity you acknowledge that written, audio, video, and photographic records of meetings may be made public.
+        \item Personal information that you provide to IETF will be handled in accordance with the IETF Privacy Statement.
+        \item As a participant or attendee, you agree to work respectfully with other participants; please contact the ombudsteam (\url{https://www.ietf.org/contact/ombudsteam/}) if you have questions or concerns about this.
+    \end{itemize}
+
+    \end{block}
+
+    \vspace{-1em}
+    \begin{block}{\small Definitive information}
+\ldots is in the documents listed below and other IETF BCPs. For advice, please talk to WG chairs or ADs:
+
+\href{https://www.rfc-editor.org/info/bcp9}{BCP 9} (Internet Standards Process),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Working Group processes),
+\href{https://www.rfc-editor.org/info/bcp25}{BCP 25} (Anti-Harassment Procedures),
+\href{https://www.rfc-editor.org/info/bcp54}{BCP 54} (Code of Conduct),
+\href{https://www.rfc-editor.org/info/bcp78}{BCP 78} (Copyright),
+\href{https://www.rfc-editor.org/info/bcp79}{BCP 79} (Patents, Participation),
+\url{https://www.ietf.org/privacy-policy/} (Privacy Policy)
+    \end{block}
+\end{frame}
+
+\begin{frame}{Meeting tips}
+    \begin{block}{\small In-person participants}
+      \begin{itemize}
+        \item Sign in at Meetecho (required for bluesheets).
+        \item We use Meetecho for queue management.
+        \item Keep both your microphones and your speakers off.
+      \end{itemize}
+    \end{block}
+
+    \begin{block}{\small Remote participants}
+      \begin{itemize}
+        \item We use Meetecho for queue management.
+      \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Agenda}\large
+    \begin{itemize}
+        \item Agenda bashing and current documents (4', chairs)
+
+        \item Hackathon report: Packed CBOR (1', CA)
+
+        \item \href{https://datatracker.ietf.org/doc/draft-ietf-cbor-edn-literals/}{\texttt{edn-literals}} (15', CB)
+
+            Continued discussion from IETF120
+
+        \item  \href{https://datatracker.ietf.org/doc/draft-ietf-cbor-cde/}{cde} (15', LL)
+
+            Comments on ALDR (was ``application profiles'')
+
+        \item  \href{https://datatracker.ietf.org/doc/draft-ietf-cbor-cddl-modules/}{\texttt{cddl-modules}} (10', CB)
+
+            Explaining problem and proposed solution
+
+        \item  \href{https://datatracker.ietf.org/doc/draft-lenders-dns-cbor/}{\texttt{lenders-dns-cbor}} (10', ML)
+
+            Motivation, Objectives, Updates, Name Compression
+    \end{itemize}
+
+    \bigskip
+
+    Flex time: 5'
+
+    \vspace{-3cm}
+    \begin{block}{\includegraphics[width=3cm]{pinata-nobackground.pdf}\mbox{\quad}}
+    \end{block}
+\end{frame}
+
+\section*{WG documents}
+
+\begin{frame}{RFC9581}\Large
+        \framesubtitle{was draft-ietf-cbor-time-tag}
+
+        ``CBOR Tags for Time, Duration, and Period''.
+
+        \bigskip
+
+        Released 2024-08-16.
+
+        \begin{block}{\includegraphics[width=3cm]{balloon-nobackground.pdf}\mbox{\quad}}
+                Thanks to Carsten, Ben, Henk and reviewers.
+        \end{block}
+\end{frame}
+
+\begin{frame}{\texttt{update-8610-grammar}}\Large
+        \framesubtitle{in AUTH48}
+
+        ``Updates to the CDDL Grammar''.
+
+        \bigskip
+
+        \begin{block}{\includegraphics[width=3cm]{finish-line-nobackground.pdf}\mbox{\quad}}
+                AUTH48; last RFC editor update from 2024-11-04.
+        \end{block}
+\end{frame}
+
+% \begin{frame}{RFC9682}\Large
+%         \framesubtitle{was update-8610-grammar}
+%
+%         ``Updates to the CDDL Grammar''.
+%
+%         \bigskip
+%
+%         Released 2024-11-05.
+%
+%         \begin{block}{\includegraphics[width=3cm]{balloon-nobackground.pdf}\mbox{\quad}}
+%                 Thanks to Carsten and reviewers.
+%         \end{block}
+% \end{frame}
+
+\begin{frame}{More document status}\Large
+    \begin{itemize}
+        \item \texttt{more-control}: Submitted to IESG
+        \item \texttt{edn-literals}: Ongoing discussion / see agenda
+        \item \texttt{packed}: Implementation draft -- try it out!
+        \item \texttt{cbor-cde}: See agenda
+        \item \texttt{cddl-modules}: See agenda
+        \item \texttt{e-ref}: Exists
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Hackathon report}\large
+    \framesubtitle{Refusing to change into a non-chair slide deck for just one slides.}
+    Implementing unpacking packed CBOR \ldots{} before breakfast.
+
+    \bigskip
+
+    Well, shared items. Argument items took another hour.
+
+    \bigskip
+
+    200 lines of Python code, as well as tests extracted from draft:
+    \url{https://codeberg.org/chrysn/cbor-packed-examples}
+
+    \begin{block}{\includegraphics[width=2cm]{laptop-nobackground.pdf}\mbox{\quad}}
+    \end{block}
+
+    \raggedleft Also, see Martine's presentation.
+\end{frame}
+
+\begin{frame}{Reel change}
+    \begin{block}{\includegraphics[width=3cm]{film-spool-nobackground.pdf}\mbox{\quad}}
+        \mbox{}
+
+        \vspace{-1.7cm}
+
+        (Please continue to individual slots' slides.)
+    \end{block}
+
+    \vfill
+    \tiny Images:
+    \href{https://game-icons.net/1x1/delapouite/pinata.html}{Piñata},
+    \href{https://game-icons.net/1x1/delapouite/laptop.html}{laptop},
+    \href{https://game-icons.net/1x1/delapouite/film-spool.html}{reel},
+    \href{https://game-icons.net/1x1/delapouite/finish-line.html}{finish-line} and
+    \href{https://game-icons.net/1x1/delapouite/calendar.html}{calendar by Delapouite},
+    \href{https://game-icons.net/1x1/lorc/balloons.html}{balloons by Lorc},
+    all CC-BY 3.0
+\end{frame}
+
+\section*{Discussion}
+
+\begin{frame}{Next interim series}\large
+    \framesubtitle{Same procedure as every year}
+    \begin{block}{\includegraphics[width=2.5cm]{calendar-nobackground.pdf}\mbox{\quad}}
+    \end{block}
+    \vspace{-2cm}
+
+    Proposed dates: Wednesday 15:00--16:00 UTC\footnote{as always following European DST}\\
+    2024-11-27\\
+    2024-12-11\\
+    2025-01-08\\
+    2025-01-22\\
+    2025-02-05\\
+    2025-02-19\\
+    2025-03-05 (after cut-off)
+
+    \bigskip
+
+    try the bi-weekly cadence one more period
+\end{frame}
+
+\begin{frame}{AOB}\large
+    \framesubtitle{This slide is intentionally left blank\footnote{Except for the title}}
+\end{frame}
+
+\end{document}
